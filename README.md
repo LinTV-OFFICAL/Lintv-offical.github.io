@@ -1,3 +1,3 @@
 # Lintv-offical.github.io
 Оффиципльный сайт LinTV
-ссыока на плейлист Lintv-offical.github.io/liniptv.m3u
+ссыока на плейлист https://lintv-offical.github.io/liniptv.m3u
