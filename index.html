@@ -1,1 +1,584 @@
-DFKBGD-F0HJIG9-G= Я ФЕМБОЙ
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinIPTV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0e0e10;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Светлая тема */
+        body.light-theme {
+            background-color: #f5f5f7;
+            color: #1a1a1c;
+        }
+
+        body.light-theme .header {
+            background-color: #ffffff;
+            border-bottom-color: #e0e0e0;
+        }
+
+        body.light-theme .sidebar {
+            background-color: #ffffff;
+            border-right-color: #e0e0e0;
+        }
+
+        body.light-theme .sidebar-list li {
+            color: #2c2c2e;
+        }
+
+        body.light-theme .sidebar-list li i {
+            color: #8e8e93;
+        }
+
+        body.light-theme .sidebar-list li:hover,
+        body.light-theme .sidebar-list li.active {
+            background-color: #f0f0f2;
+            color: #ff8c00;
+        }
+
+        body.light-theme .sidebar-list li.active i {
+            color: #ff8c00;
+        }
+
+        body.light-theme .content {
+            background-color: #fafafc;
+        }
+
+        body.light-theme .channel-card {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+        }
+
+        body.light-theme .channel-card:hover {
+            background-color: #f5f5f7;
+            border-color: #ff8c00;
+        }
+
+        body.light-theme .search-box {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+        }
+
+        body.light-theme .search-box input {
+            color: #1a1a1c;
+        }
+
+        body.light-theme .search-box input::placeholder {
+            color: #aaa;
+        }
+
+        .header {
+            padding: 1rem 2rem;
+            background-color: #1a1a1c;
+            border-bottom: 1px solid #2a2a2e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header i {
+            font-size: 1.8rem;
+            color: #ff8c00;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: #141416;
+            padding: 1.5rem 0;
+            border-right: 1px solid #2a2a2e;
+            overflow-y: auto;
+            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-top {
+            flex: 1;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8f8f9a;
+        }
+
+        .sidebar-list {
+            list-style: none;
+        }
+
+        .sidebar-list li {
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #d1d1d6;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-list li i {
+            width: 20px;
+            color: #7b7b85;
+        }
+
+        .sidebar-list li:hover {
+            background-color: #202024;
+            color: #fff;
+            border-left-color: #ff8c00;
+        }
+
+        .sidebar-list li.active {
+            background-color: #202024;
+            color: #fff;
+            border-left-color: #ff8c00;
+        }
+
+        .sidebar-list li.active i {
+            color: #ff8c00;
+        }
+
+        .settings-sidebar {
+            border-top: 1px solid #2a2a2e;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+        .settings-sidebar li {
+            cursor: pointer;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background-color: #0b0b0d;
+            transition: background-color 0.3s;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .content-header h2 {
+            font-weight: 400;
+            font-size: 1.4rem;
+        }
+
+        .search-box {
+            background-color: #1e1e22;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #2e2e34;
+        }
+
+        .search-box i {
+            color: #8f8f9a;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+            width: 200px;
+        }
+
+        .search-box input::placeholder {
+            color: #5f5f6b;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-card {
+            background-color: #18181c;
+            border-radius: 12px;
+            padding: 1.2rem 0.5rem;
+            text-align: center;
+            transition: transform 0.2s, background-color 0.2s;
+            cursor: pointer;
+            border: 1px solid #2a2a2e;
+        }
+
+        .channel-card:hover {
+            background-color: #23232a;
+            transform: translateY(-4px);
+            border-color: #ff8c00;
+        }
+
+        .channel-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            background-color: #2a2a30;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-1 { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .icon-2 { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .icon-3 { background: linear-gradient(145deg, #2ecc71, #27ae60); }
+        .icon-4 { background: linear-gradient(145deg, #f1c40f, #f39c12); }
+        .icon-5 { background: linear-gradient(145deg, #9b59b6, #8e44ad); }
+        .icon-6 { background: linear-gradient(145deg, #e67e22, #d35400); }
+        .icon-7 { background: linear-gradient(145deg, #1abc9c, #16a085); }
+        .icon-8 { background: linear-gradient(145deg, #e84393, #c2185b); }
+
+        .channel-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .channel-category {
+            font-size: 0.75rem;
+            color: #8f8f9a;
+        }
+
+        /* Модальное окно настроек */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1e1e22;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            color: #fff;
+            position: relative;
+        }
+
+        body.light-theme .modal-content {
+            background-color: #ffffff;
+            color: #1a1a1c;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .setting-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .setting-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .theme-toggle button {
+            background-color: #2c2c2e;
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        body.light-theme .theme-toggle button {
+            background-color: #e0e0e0;
+            color: #1a1a1c;
+        }
+
+        .theme-toggle button.active {
+            background-color: #32cd32;
+            color: white;
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-toggle button {
+            background-color: #2c2c2e;
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        body.light-theme .lang-toggle button {
+            background-color: #e0e0e0;
+            color: #1a1a1c;
+        }
+
+        .lang-toggle button.active {
+            background-color: #32cd32;
+            color: white;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-modal:hover {
+            color: #ff8c00;
+        }
+
+        /* Загрузочный экран */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0e0e10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            visibility: visible;
+            opacity: 1;
+        }
+        body.light-theme .preloader {
+            background-color: #f5f5f7;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 140, 0, 0.3);
+            border-top: 4px solid #ff8c00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 80px;
+                overflow: visible;
+            }
+            .sidebar-title {
+                text-align: center;
+                padding: 0 0.2rem;
+                font-size: 0.7rem;
+            }
+            .sidebar-list li span {
+                display: none;
+            }
+            .sidebar-list li {
+                justify-content: center;
+                padding: 0.8rem 0;
+            }
+            .sidebar-list li i {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .search-box input {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div class="preloader" id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="header">
+        <div class="header-left">
+            <i class="fas fa-tv"></i>
+            <h1>LinIPTV</h1>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-section">
+                    <div class="sidebar-title" data-lang-key="my_lists">Мои списки</div>
+                    <ul class="sidebar-list">
+                        <li class="active" id="all-channels"><i class="fas fa-star"></i> <span data-lang-key="favorites">Избранное</span></li>
+                        <li><i class="fas fa-clock"></i> <span data-lang-key="recent">Недавние</span></li>
+                        <li><i class="fas fa-download"></i> <span data-lang-key="downloads">Загрузки</span></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title" data-lang-key="categories">Категории</div>
+                    <ul class="sidebar-list">
+                        <li data-category="новости"><i class="fas fa-newspaper"></i> <span data-lang-key="cat_news">Новости</span></li>
+                        <li data-category="спорт"><i class="fas fa-futbol"></i> <span data-lang-key="cat_sport">Спорт</span></li>
+                        <li data-category="кино"><i class="fas fa-film"></i> <span data-lang-key="cat_cinema">Кино</span></li>
+                        <li data-category="музыка"><i class="fas fa-music"></i> <span data-lang-key="cat_music">Музыка</span></li>
+                        <li data-category="детские"><i class="fas fa-child"></i> <span data-lang-key="cat_kids">Детские</span></li>
+                        <li data-category="наука"><i class="fas fa-flask"></i> <span data-lang-key="cat_science">Наука</span></li>
+                        <li data-category="кулинария"><i class="fas fa-pizza-slice"></i> <span data-lang-key="cat_cooking">Кулинария</span></li>
+                        <li data-category="зарубежные"><i class="fas fa-globe"></i> <span data-lang-key="cat_foreign">Зарубежные</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-section settings-sidebar">
+                <ul class="sidebar-list">
+                    <li id="settingsBtnSidebar"><i class="fas fa-cog"></i> <span data-lang-key="settings">Настройки</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content-header">
+                <h2 data-lang-key="popular_channels">Популярные каналы</h2>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Поиск каналов..." id="searchInput" data-lang-placeholder="search_placeholder">
+                </div>
+            </div>
+
+            <div class="channels-grid" id="channels-grid">
+                <!-- Каналы с атрибутами для перевода -->
+                <div class="channel-card" data-category="новости" data-name-ru="Первый канал" data-name-be="Першы канал" data-name-uk="Перший канал" data-cat-ru="Новости" data-cat-be="Навіны" data-cat-uk="Новини">
+                    <div class="channel-icon icon-1">П</div>
+                    <div class="channel-name">Первый канал</div>
+                    <div class="channel-category">Новости</div>
+                </div>
+                <div class="channel-card" data-category="новости" data-name-ru="Россия 1" data-name-be="Расія 1" data-name-uk="Росія 1" data-cat-ru="Новости" data-cat-be="Навіны" data-cat-uk="Новини">
+                    <div class="channel-icon icon-2">Р</div>
+                    <div class="channel-name">Россия 1</div>
+                    <div class="channel-category">Новости</div>
+                </div>
+                <div class="channel-card" data-category="новости" data-name-ru="НТВ" data-name-be="НТВ" data-name-uk="НТВ" data-cat-ru="Новости" data-cat-be="Навіны" data-cat-uk="Новини">
+                    <div class="channel-icon icon-3">Н</div>
+                    <div class="channel-name">НТВ</div>
+                    <div class="channel-category">Новости</div>
+                </div>
+                <div class="channel-card" data-category="кино" data-name-ru="СТС" data-name-be="СТС" data-name-uk="СТС" data-cat-ru="Кино" data-cat-be="Кіно" data-cat-uk="Кіно">
+                    <div class="channel-icon icon-4">СТ</div>
+                    <div class="channel-name">СТС</div>
+                    <div class="channel-category">Кино</div>
+                </div>
+                <div class="channel-card" data-category="кино" data-name-ru="ТНТ" data-name-be="ТНТ" data-name-uk="ТНТ" data-cat-ru="Кино" data-cat-be="Кіно" data-cat-uk="Кіно">
+                    <div class="channel-icon icon-5">ТН</div>
+                    <div class="channel-name">ТНТ</div>
+                    <div class="channel-category">Кино</div>
+                </div>
+                <div class="channel-card" data-category="спорт" data-name-ru="Матч ТВ" data-name-be="Матч ТБ" data-name-uk="Матч ТБ" data-cat-ru="Спорт" data-cat-be="Спорт" data-cat-uk="Спорт">
+                    <div class="channel-icon icon-6">М</div>
+                    <div class="channel-name">Матч ТВ</div>
+                    <div class="channel-category">Спорт</div>
+                </div>
+                <div class="channel-card" data-category="наука" data-name-ru="Культура" data-name-be="Культура" data-name-uk="Культура" data-cat-ru="Наука" data-cat-be="Навука" data-cat-uk="Наука">
+                    <div class="channel-icon icon-7">К</div>
+                    <div class="channel-name">Культура</div>
+                    <div class="channel-category">Наука</div>
+                </div>
+                <div class="channel-card" data-category="наука" data-name-ru="Рен ТВ" data-name-be="Рэн ТБ" data-name-uk="Рен ТБ" data-cat-ru="Наука" data-cat-be="Навука" data-cat-uk="Наука">
+                    <div class="channel-icon icon-8">Р</div>
+                    <div class="channel-name">Рен ТВ</div>
+                    <div class="channel-category">Наука</div>
+                </div>
+                <div class="channel-card" data-category="новости" data-name-ru="Пятый канал" data-name-be="Пяты канал" data-name-uk="П'ятий канал" data-cat-ru="Новости" data-cat-be="Навіны" data-cat-uk="Новини">
+                    <div class="channel-icon icon-1">5</div>
+                    <div class="channel-name">Пятый канал</div>
+                    <div class="channel-category">Новости</div>
+                </div>
+                <div class="channel-card" data-category="кулинария" data-name-ru="Домашний" data-name-be="Дамашні" data-name-uk="Домашній" data-cat-ru="Кулинария" data-cat-be="Кулінарыя" data-cat-uk="Кулінарія">
+                    <div class="channel-icon icon-2">Д</div>
+                    <div class="channel-name">Домашний</div>
+                    <div class="channel-category">Кулинария</div>
+                </div>
+                <div class="channel-card" data-category="новости" data-name-ru="Звезда" data-name-be="Зорка" data-name-uk="Зірка" data-cat-ru="Новости" data-cat-be="Навіны" data-cat-uk="Новини">
+                    <div class="channel-icon icon-3">З</div>
+                    <div class="channel-name">Звезда</div>
+                    <div class="channel-category">Новости</div>
+                </div>
+                <div class="channel-card" data-category="детские" data-name-ru="Карусель" data-name-be="Карусель" data-name-uk="Карусель" data-cat-ru="Детские" data-cat-be="Дзіцячыя" data-cat-uk="Дитячі">
+                    <div class="channel-icon icon-4">К</div>
+                    <div class="channel-name">Карусель</div>
+                    <div class="channel-category">Детские</div>
+                </div>
+                <div class="channel-card" data-category="новости" data-name-ru="Евроньюс" data-name-be="Еўраньюс" da
